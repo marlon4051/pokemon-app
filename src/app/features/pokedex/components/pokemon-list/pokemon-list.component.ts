@@ -46,6 +46,6 @@ export class PokemonListComponent implements OnInit {
   }
 
   public retryLoadPokemons() {
-    this.onScroll(); // Intenta cargar de nuevo cuando el usuario hace clic en reintentar
+    this.onScroll();
   }
 }

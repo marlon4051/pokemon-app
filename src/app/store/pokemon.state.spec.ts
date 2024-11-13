@@ -57,15 +57,21 @@ describe('PokemonState', () => {
     });
   });
 
-  // it('should trigger LoadPokemons on LoadMorePokemons with updated offset', () => {
-  //   const dispatchSpy = spyOn(store, 'dispatch').and.callThrough(); // Espiar el método dispatch del store
-
-  //   store.dispatch(new LoadPokemons(0)); // Acción inicial con offset 0
-  //   store.dispatch(new LoadMorePokemons()); // Acción para cargar más pokemons
-
-  //   // Verifica que dispatch haya sido llamado con una acción LoadPokemons que contenga el offset actualizado
-  //   expect(dispatchSpy).toHaveBeenCalledWith(
-  //     jasmine.objectContaining({ offset: 20 })
-  //   );
-  // });
+  it('should trigger LoadPokemons when LoadMorePokemons is called', () => {
+    const dispatchSpy = jasmine.createSpy('dispatch');
+    const stateContextMock = {
+      getState: jasmine.createSpy('getState').and.returnValue({ offset: 0 }),
+      dispatch: dispatchSpy,
+    };
+    const pokemonState = new PokemonState(pokemonServiceSpy);
+  
+    // Trigger the loadMorePokemons action
+    pokemonState.loadMorePokemons(stateContextMock as any);
+  
+    expect(dispatchSpy).toHaveBeenCalledTimes(1);  // Only one internal dispatch (LoadPokemons)
+    expect(dispatchSpy).toHaveBeenCalledWith(jasmine.any(LoadPokemons));  // Dispatch LoadPokemons when call loadMorePokemons
+  });
+  
+  
+  
 });

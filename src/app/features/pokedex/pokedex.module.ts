@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { PokemonCardComponent } from './components/pokemon-card/pokemon-card.component';
+import { PokedexHomeComponent } from './components/pokedex-home/pokedex-home.component';
 import { PokemonService } from './services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { InMemoryCache, HttpLink } from '@apollo/client/core';
@@ -11,8 +12,9 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 
+
 @NgModule({
-  declarations: [PokemonListComponent, PokemonCardComponent],
+  declarations: [PokemonListComponent, PokemonCardComponent, PokedexHomeComponent],
   providers: [
     PokemonService,
     {

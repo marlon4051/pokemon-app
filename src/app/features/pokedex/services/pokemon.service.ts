@@ -6,7 +6,7 @@ import { Apollo, gql } from 'apollo-angular';
 
 const GET_POKEMONS = gql`
   query GetPokemons($limit: Int, $offset: Int) {
-    pokemon_v2_pokemonspecies(limit: $limit, offset: $offset) {
+    pokemon_v2_pokemonspecies(limit: $limit, offset: $offset, order_by: {id: asc}) {
       pokemon_v2_pokemons {
         name
         height

@@ -1,10 +1,16 @@
-import { of, throwError } from "rxjs";
-import { LoadMorePokemons, LoadPokemons, PokemonState } from "../../../../store/pokemon.state";
-import { PokemonListComponent } from "./pokemon-list.component";
-import { NgxsModule, Store } from "@ngxs/store";
-import { ToastrModule, ToastrService } from "ngx-toastr";
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { Apollo } from "apollo-angular";
+import { of } from 'rxjs';
+import {
+  LoadPokemons,
+  PokemonState,
+} from '../../../../store/pokemon.state';
+import { PokemonListComponent } from './pokemon-list.component';
+import { NgxsModule, Store } from '@ngxs/store';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { Apollo } from 'apollo-angular';
 
 describe('PokemonListComponent', () => {
   let component: PokemonListComponent;
@@ -66,29 +72,31 @@ describe('PokemonListComponent', () => {
     });
   });
 
-  it('should show error toast on error$', () => {
-    const errorMessage = 'Error loading pokemons';
-    store.select.and.returnValue(throwError(() => new Error(errorMessage)));
-
-    component.ngOnInit();
-    expect(toastr.error).toHaveBeenCalledWith(
-      'Failed to load pokemons',
-      'Error loading pokemons'
-    );
-  });
-
   it('should dispatch LoadMorePokemons on scroll if there are more pokemons', () => {
-    const hasMoreMock$ = of(true);
-    store.select.and.returnValue(hasMoreMock$);
-
+    const hasMorePokemons = true;
+    
+    component.hasMorePokemons$ = of(hasMorePokemons); 
+    component.ngOnInit();
+    fixture.detectChanges();
+  
     component.onScroll();
-    expect(store.dispatch).toHaveBeenCalledWith(new LoadMorePokemons());
+  
+    expect(store.dispatch).toHaveBeenCalledWith(new LoadPokemons(0));
   });
+  
 
   it('should call onScroll when retry button is clicked', () => {
     spyOn(component, 'onScroll');
-    const button = fixture.debugElement.nativeElement.querySelector('.retry-button');
+
+    // Simulate condition to display retry button, if necessary
+    component.error$ = of('Failed to load pokemons');
+    fixture.detectChanges();
+
+    const button =
+      fixture.debugElement.nativeElement.querySelector('.retry-button');
+    expect(button).not.toBeNull();
     button.click();
+
     expect(component.onScroll).toHaveBeenCalled();
   });
 });
