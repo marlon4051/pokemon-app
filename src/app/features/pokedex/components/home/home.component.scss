@@ -1,0 +1,126 @@
+.pokedex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  cursor: pointer;
+  background-color: #f0f0f0; /* Fondo simple */
+}
+
+.pokedex {
+  width: 300px;
+  height: 500px;
+  position: relative;
+  border: 5px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ff0000;
+}
+
+.pokedex-cover {
+  width: 100%;
+  height: 100%;
+  background-color: #ff0000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 1s ease-in-out;
+  transform-origin: left;
+}
+
+.pokedex-cover.open {
+  transform: rotateY(180deg); /* Abre hacia la derecha */
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+
+.camera {
+  width: 40px;
+  height: 40px;
+  background-color: #000;
+  border-radius: 50%;
+  position: relative;
+}
+
+.camera::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #3498db;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.camera::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.indicators {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #333; /* Luces apagadas */
+  box-shadow: inset 0 0 3px 2px rgba(0, 0, 0, 0.5);
+  border: 1px solid black; /* Borde negro */
+}
+
+.blue {
+  background-color: #3498db;
+}
+
+.red {
+  background-color: #e74c3c;
+}
+
+.green {
+  background-color: #2ecc71;
+}
+
+.separator {
+  width: 100%;
+  height: 5px;
+  background-color: black;
+  margin-top: 10px;
+}
+
+.bottom-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  bottom: 50%;
+  left: 10%;
+  transform: translateY(50%); /* Para centrar verticalmente */
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 20px solid yellow; /* Apunta a la derecha */
+  /* Sin borde */
+}

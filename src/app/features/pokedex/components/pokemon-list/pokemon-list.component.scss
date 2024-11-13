@@ -1,0 +1,19 @@
+h1 {
+  color: red;
+  text-align: center;
+  font-size: xxx-large;
+}
+
+.pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.loading {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}

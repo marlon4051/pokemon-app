@@ -1,0 +1,14 @@
+<div class="container-list">
+  <h1>Pokedex</h1>
+  <div
+    class="pokemon-list"
+    infiniteScroll
+    (scrolled)="onScroll()"
+  >
+    <app-pokemon-card
+      *ngFor="let pokemon of pokemons$ | async"
+      [pokemon]="pokemon"
+    ></app-pokemon-card>
+    <div *ngIf="loading$ | async" class="loading">Loading more Pokémon...</div>
+  </div>
+</div>

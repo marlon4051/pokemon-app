@@ -1,0 +1,58 @@
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Pokemon } from '../../../models/pokemon.model';
+import { Observable } from 'rxjs';
+import { Apollo, gql } from 'apollo-angular';
+
+const GET_POKEMONS = gql`
+  query GetPokemons($limit: Int, $offset: Int) {
+    pokemon_v2_pokemonspecies(limit: $limit, offset: $offset) {
+      pokemon_v2_pokemons {
+        name
+        height
+        weight
+        pokemon_v2_pokemonsprites {
+          sprites(path: "other.official-artwork.front_default")
+        }
+      }
+    }
+  }
+`;
+
+@Injectable({ providedIn: 'root' })
+export class PokemonService {
+  //   private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=30';
+
+  constructor(private apollo: Apollo) {}
+
+  //   getPokemonList() {
+  // return this.http.get<Pokemon[]>(this.apiUrl).pipe(
+  //     switchMap((response: any) => {
+  //       const pokemonDetails = response.results.map((pokemon: any) =>
+  //         this.http.get(pokemon.url)
+  //       );
+  //       return forkJoin(pokemonDetails);
+  //     })
+  //   );
+  //   }
+
+  getPokemonList(limit: number, offset: number): Observable<Pokemon[]> {
+    return this.apollo
+      .watchQuery<any>({
+        query: GET_POKEMONS,
+        variables: { limit, offset },
+      })
+      .valueChanges.pipe(
+        map((result) => {
+          return result.data.pokemon_v2_pokemonspecies.map((item: any) => ({
+            name: item.pokemon_v2_pokemons[0]?.name,
+            height: item.pokemon_v2_pokemons[0]?.height,
+            weight: item.pokemon_v2_pokemons[0]?.weight,
+            imageUrl:
+              item.pokemon_v2_pokemons[0]?.pokemon_v2_pokemonsprites[0]
+                ?.sprites,
+          })) as Pokemon[];
+        })
+      );
+  }
+}
