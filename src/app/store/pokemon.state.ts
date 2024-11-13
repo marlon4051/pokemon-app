@@ -83,6 +83,9 @@ export class PokemonState {
   loadMorePokemons(ctx: StateContext<PokemonStateModel>) {
     const state = ctx.getState();
     const newOffset = state.offset + 20;
+    if (state.loading) {
+      return; 
+    }
     return ctx.dispatch(new LoadPokemons(newOffset));
   }
 }

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { Pokemon } from '../../../models/pokemon.model';
 import { Observable } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 
 const GET_POKEMONS = gql`
   query GetPokemons($limit: Int, $offset: Int) {
-    pokemon_v2_pokemonspecies(limit: $limit, offset: $offset, order_by: {id: asc}) {
+    pokemon_v2_pokemonspecies(
+      limit: $limit
+      offset: $offset
+      order_by: { id: asc }
+    ) {
       pokemon_v2_pokemons {
         name
         height
@@ -29,6 +33,13 @@ export class PokemonService {
         variables: { limit, offset },
       })
       .valueChanges.pipe(
+        debounceTime(300),
+        switchMap(() => {
+          return this.apollo.watchQuery<any>({
+            query: GET_POKEMONS,
+            variables: { limit, offset },
+          }).valueChanges;
+        }),
         map((result) => {
           return result.data.pokemon_v2_pokemonspecies.map((item: any) => ({
             name: item.pokemon_v2_pokemons[0]?.name,
