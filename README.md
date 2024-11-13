@@ -1,27 +1,51 @@
-# Pokemon
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
+# Pokemon-app
 
-## Development server
+This is the frontend to show pokemons
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Prerequisites
 
-## Code scaffolding
+Make sure you have the following installed before proceeding:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Node.js v20.18.0** You can find here: [Node.js v20.18.0]( https://nodejs.org/en/download/package-manager).
 
-## Build
+You can verify your Node.js version with the following command:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```sh
+node -v
+```
 
-## Running unit tests
+## Getting Started
+Follow these steps to set up and run the project locally:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Clone the repository:
 
-## Running end-to-end tests
+```sh
+git clone https://github.com/marlon4051/pokemon-app
+```
+Navigate to the project directory:
+```sh
+cd pokemon-app
+```
+Install the required dependencies:
+```sh
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Run the Angular application:
 
-## Further help
+Once everything is installed, you can run the Angular development server:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```sh
+npm start
+```
+By default, the application will be accessible at http://localhost:4200/.
+
+## Api Pokemon:
+This app use [Poke Graphql]( https://pokeapi.co/docs/graphql)
+
+## Built With
+- Angular
+= TypeScript
+- RxJS
+- NGXS for state management
