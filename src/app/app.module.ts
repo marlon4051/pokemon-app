@@ -5,11 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxsModule } from '@ngxs/store';
 import { PokemonState } from './store/pokemon.state';
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
 import { PokedexModule } from './features/pokedex/pokedex.module';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +16,8 @@ import { PokedexModule } from './features/pokedex/pokedex.module';
     AppRoutingModule,
     PokedexModule,
     NgxsModule.forRoot([PokemonState]),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({ positionClass: 'toast-top-right' }),
   ],
   providers: [],
   bootstrap: [AppComponent],

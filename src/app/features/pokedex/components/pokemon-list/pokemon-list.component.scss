@@ -17,3 +17,38 @@ h1 {
   padding: 10px;
   font-weight: bold;
 }
+
+.retry-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #ff6b6b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.retry-button:hover {
+  background-color: #ff5252;
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.5);
+}
+
+.retry-button:active {
+  background-color: #ff3838;
+  box-shadow: none;
+}
+
+::ng-deep .toast-error {
+  background-color: red !important;
+  color: white;
+  padding: 1rem;
+  border-radius: 2%;
+}
+
+::ng-deep .toast-container {
+  position: fixed !important;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+}

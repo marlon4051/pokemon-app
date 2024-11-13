@@ -1,9 +1,8 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../models/pokemon.model';
-import { PokemonService } from '../features/pokedex/services/pokemon.service';
 import { catchError, of, tap } from 'rxjs';
-
+import { PokemonService } from '../features/pokedex/services/pokemon.service';
 export class LoadPokemons {
   static readonly type = '[Pokemon] Load';
   constructor(public offset: number = 0) {}
@@ -45,6 +44,11 @@ export class PokemonState {
     return state.loading;
   }
 
+  @Selector()
+  static error(state: PokemonStateModel) {
+    return state.error;
+  }
+
   // Load initial pokemons
   @Action(LoadPokemons)
   loadPokemons(ctx: StateContext<PokemonStateModel>, action: LoadPokemons) {
@@ -60,7 +64,7 @@ export class PokemonState {
         ctx.patchState({
           pokemons: state.pokemons.concat(pokemons),
           loading: false,
-          offset: state.offset + 20,
+          offset: action.offset,
           hasMorePokemons: pokemons.length === 20,
         });
       }),
@@ -78,6 +82,7 @@ export class PokemonState {
   @Action(LoadMorePokemons)
   loadMorePokemons(ctx: StateContext<PokemonStateModel>) {
     const state = ctx.getState();
-    return ctx.dispatch(new LoadPokemons(state.offset));
+    const newOffset = state.offset + 20;
+    return ctx.dispatch(new LoadPokemons(newOffset));
   }
 }

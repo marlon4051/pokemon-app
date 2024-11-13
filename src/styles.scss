@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@font-face { font-family: 'PokemonClassic'; src: url('./assets/fonts/PokemonClassic.ttf') format('truetype');}
-html, body { height: 100%; }
-body { margin: 0; font-family: 'PokemonClassic'; background-color: beige;}
+@font-face {
+  font-family: "PokemonClassic";
+  src: url("./assets/fonts/PokemonClassic.ttf") format("truetype");
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "PokemonClassic";
+  background-color: beige;
+}
+

@@ -6,6 +6,7 @@ import {
   LoadMorePokemons,
   LoadPokemons,
 } from '../../../../store/pokemon.state';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -18,23 +19,33 @@ export class PokemonListComponent implements OnInit {
   public error$: Observable<string> | undefined;
   public hasMorePokemons$: Observable<boolean> | undefined;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private toastr: ToastrService) {}
 
-  public ngOnInit(): void {
+  public ngOnInit() {
     this.store.dispatch(new LoadPokemons());
 
     this.pokemons$ = this.store.select((state) => state.pokemon.pokemons);
     this.loading$ = this.store.select((state) => state.pokemon.loading);
     this.error$ = this.store.select((state) => state.pokemon.error);
     this.hasMorePokemons$ = this.store.select((state) => state.pokemon.hasMorePokemons);
+
+    this.error$?.subscribe(err=> {
+      if(err) {
+        this.toastr.error('Failed to load pokemons', err);
+      }
+    })
   }
 
-  public onScroll(): void {
+  public onScroll() {
     // Load more Pokémon when scrolled
     this.hasMorePokemons$?.subscribe((hasMore) => {
       if (hasMore) {
         this.store.dispatch(new LoadMorePokemons());
       }
     });
+  }
+
+  public retryLoadPokemons() {
+    this.onScroll(); // Intenta cargar de nuevo cuando el usuario hace clic en reintentar
   }
 }

@@ -21,21 +21,7 @@ const GET_POKEMONS = gql`
 
 @Injectable({ providedIn: 'root' })
 export class PokemonService {
-  //   private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=30';
-
   constructor(private apollo: Apollo) {}
-
-  //   getPokemonList() {
-  // return this.http.get<Pokemon[]>(this.apiUrl).pipe(
-  //     switchMap((response: any) => {
-  //       const pokemonDetails = response.results.map((pokemon: any) =>
-  //         this.http.get(pokemon.url)
-  //       );
-  //       return forkJoin(pokemonDetails);
-  //     })
-  //   );
-  //   }
-
   getPokemonList(limit: number, offset: number): Observable<Pokemon[]> {
     return this.apollo
       .watchQuery<any>({
@@ -55,4 +41,15 @@ export class PokemonService {
         })
       );
   }
+
+  //   getPokemonList() {
+  // return this.http.get<Pokemon[]>(this.apiUrl).pipe(
+  //     switchMap((response: any) => {
+  //       const pokemonDetails = response.results.map((pokemon: any) =>
+  //         this.http.get(pokemon.url)
+  //       );
+  //       return forkJoin(pokemonDetails);
+  //     })
+  //   );
+  //   }
 }
